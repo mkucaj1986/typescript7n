@@ -1,0 +1,16 @@
+.app-wrapper {
+  width: 100%;
+}
+
+.app-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    margin: 0 auto;
+    max-width: 600px;
+  }
+}

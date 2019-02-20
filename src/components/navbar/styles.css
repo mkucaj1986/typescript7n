@@ -1,0 +1,39 @@
+.app-menu {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.app-menu-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.app-menu-list-el {
+  cursor: pointer;
+}
+
+.app-menu-link {
+  color: #353131;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: flex;
+  font-size: 18px;
+  border-bottom: 5px solid transparent;
+  transition:.35s;
+}
+
+.app-menu-is-active {
+  border-bottom: 5px solid #000;
+  color: #000000;
+}
+
+.app-menu-link:hover {
+  border-bottom: 5px solid #000;
+   color: #000000;
+}
