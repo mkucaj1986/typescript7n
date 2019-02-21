@@ -1,5 +1,7 @@
-import { IData } from 'interfaces/IGetData';
+import { ICartItem } from 'interfaces/ICart';
 
 export interface IStore {
-  data: IData;
+  products: ICartItem[];
+  isFetching: boolean;
+  dataRady: boolean;
 }

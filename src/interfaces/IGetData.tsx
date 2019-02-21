@@ -1,14 +1,18 @@
+import { ICartItem } from './ICart';
+
 export interface IData {
-  isFetching?: boolean;
-  count?: number;
-  error?: boolean;
-  message?: any;
+  readonly isFetching: boolean;
+  readonly products: ICartItem[];
+  readonly errors?: string | null;
 }
 
 export interface IDataAction {
   type: string;
   payload?: {
-    count?: number;
+    isFetching: boolean;
+    dataRady?: boolean;
+    products?: [];
     message?: any;
+    errors?: string | null;
   };
 }

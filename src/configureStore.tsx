@@ -1,35 +1,26 @@
-// `react-router-redux` is deprecated, so we use `connected-react-router`.
-// This provides a Redux middleware which connects to our `react-router` instance.
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-// If you use react-router, don't forget to pass in your history type.
-import { History } from 'history';
-import { applyMiddleware, createStore, Store } from 'redux';
-// We'll be using Redux Devtools. We can use the `composeWithDevTools()`
-// directive so we can pass our middleware along with it
-import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
-// Import the state interface and our combined reducers/sagas.
-import { ApplicationState, rootReducer, rootSaga } from './store';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import { applyMiddleware, compose, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import createRootReducer from './store/reducers';
+export const history = createBrowserHistory();
 
-export default function configureStore(
-  history: History,
-  initialState: ApplicationState
-): Store<ApplicationState> {
-  // create the composing function for our middlewares
-  const composeEnhancers = composeWithDevTools({});
-  // create the redux-saga middleware
-  const sagaMiddleware = createSagaMiddleware();
-
-  // We'll create our store with the combined reducers/sagas, and the initial Redux state that
-  // we'll be passing from our entry point.
-
+export default function configureStore(initialState?: any): Store<any> {
+  const composeEnhancer: typeof compose =
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
-    connectRouter(history)(rootReducer),
+    createRootReducer(history),
     initialState,
-    composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware))
+    composeEnhancer(applyMiddleware(routerMiddleware(history), thunk))
   );
 
-  // Don't forget to run the root saga, and return the store object.
-  sagaMiddleware.run(rootSaga);
+  // Hot reloading
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./store/reducers', () => {
+      store.replaceReducer(createRootReducer(history));
+    });
+  }
+
   return store;
 }
