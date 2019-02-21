@@ -18,7 +18,7 @@ const routes = (
           path="/cart"
           render={props => (
             <Suspense fallback={<div>Loading...</div>}>
-              <Cart />
+              <Cart appState={true} appProducts={true} />
             </Suspense>
           )}
         />

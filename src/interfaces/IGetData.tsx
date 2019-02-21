@@ -1,14 +1,22 @@
 export interface IData {
-  isFetching?: boolean;
-  count?: number;
-  error?: boolean;
-  message?: any;
+  readonly isFetching: boolean;
+  readonly data: Cart[];
+  readonly errors?: string | null;
 }
 
 export interface IDataAction {
   type: string;
   payload?: {
-    count?: number;
+    isFetching: boolean;
+    dataRady?: boolean;
+    data?: [];
     message?: any;
+    errors?: string | null;
   };
+}
+
+export type ApiResponse = Record<string, any>;
+
+export interface Cart extends ApiResponse {
+  id: number;
 }

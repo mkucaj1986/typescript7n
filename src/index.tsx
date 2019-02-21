@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import App from './App';
 import configureStore, { history } from './configureStore';
+import App from './containers/App';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -15,17 +15,18 @@ const render = () => {
         <App history={history} />
       </Provider>
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('root') as HTMLElement
   );
 };
 
 render();
+
 registerServiceWorker();
 
 // Hot reloading
 if (module.hot) {
   // Reload components
-  module.hot.accept('./App', () => {
+  module.hot.accept('./containers/App', () => {
     render();
   });
 }

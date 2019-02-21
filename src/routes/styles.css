@@ -4,13 +4,29 @@
 
 .app-container {
   width: 100%;
-  padding: 0;
+  padding: 20px 0 0 0;
   margin: 0;
 }
 
 @media (min-width: 768px) {
   .app-container {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 750px;
   }
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .app-container {
+    max-width: 1170px;
+  }
+}
+
+ul {
+  list-style-type: none;
 }
