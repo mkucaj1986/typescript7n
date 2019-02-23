@@ -4,3 +4,4 @@ export const DATA_FAILURE = 'DATA_FAILURE';
 export const DATA_SUCCESS = 'DATA_SUCCESS';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const CHNAGE_CART = 'CHNAGE_CART';
+export const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE';

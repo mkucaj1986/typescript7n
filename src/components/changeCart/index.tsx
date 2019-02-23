@@ -1,14 +1,18 @@
+import { ICartItem, ICartItems } from 'interfaces/ICart';
+import { IStore } from 'interfaces/IStore';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { changeCartAction } from 'store/actions';
+import { changeCartAction, setTotalPriceAction } from 'store/actions';
 import styles from './styles.css';
 
 interface IProps {
   index: number;
+  app: IStore;
   changeCart: (option: any, item: number) => Promise<any>;
+  setTotalPrice: (totalPrice: number) => any;
 }
 
 const colourStyles = {
@@ -26,8 +30,30 @@ const colourStyles = {
   }
 };
 
+const getTotalPrice = (items: ICartItems): number => {
+  // Total Price number
+  let totalPrice: number = 0;
+
+  items.forEach((el: ICartItem) => {
+    const price: number = el.qty * el.price;
+    totalPrice += price;
+  });
+
+  // return total price
+  return totalPrice;
+};
+
 const handleChange = (option: any, props: IProps) => {
   props.changeCart(option.value, props.index);
+
+  // Cart Items
+  const items = props.app.products;
+
+  // Cart Total Price
+  const totalPrice: number = getTotalPrice(items);
+
+  // Set Total Price
+  props.setTotalPrice(totalPrice);
 };
 
 const selectedOption: any = null;
@@ -57,12 +83,16 @@ const ChangeCart = (props: IProps) => {
 };
 
 const mapStateToProps = (state: any): object => {
-  return {};
+  return {
+    app: state.app
+  };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({
   changeCart: (option: any, index: number) =>
-    dispatch(changeCartAction(option, index))
+    dispatch(changeCartAction(option, index)),
+  setTotalPrice: (totalPrice: number) =>
+    dispatch(setTotalPriceAction(totalPrice))
 });
 
 export default connect(

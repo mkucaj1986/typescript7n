@@ -26,7 +26,9 @@ const deleteItem = (props: IProps) => {
 };
 
 const mapStateToProps = (state: any): object => {
-  return state;
+  return {
+    app: state.app
+  };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({

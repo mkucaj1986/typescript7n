@@ -1,0 +1,56 @@
+.shipping-form {
+  max-width: 500px;
+  padding: 30px;
+}
+
+.input-field {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.input-errors {
+  color: red;
+  display: flex;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.form-btn {
+  background-color: #000;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 30px;
+  transition: all 0.35s;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid transparent;
+  display: block;
+  margin: 10px auto;
+}
+
+.form-btn:hover {
+  background-color: #ccc;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.form-valid {
+  color: #000;
+  padding: 30px;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999;
+  background-color: #ccc;
+  color: #666;
+}
+
+button:disabled:hover,
+button[disabled]:hover {
+  border: 1px solid #999;
+  background-color: #ccc;
+  color: #666;
+}

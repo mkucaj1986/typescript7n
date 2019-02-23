@@ -16,3 +16,9 @@ export interface IDataAction {
     errors?: string | null;
   };
 }
+
+export type ApiResponse = Record<string, any>;
+
+export interface Cart extends ApiResponse {
+  id: number;
+}

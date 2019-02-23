@@ -5,4 +5,5 @@ export const cartItemTitle: string;
 export const cartItemDelete: string;
 export const cartItemSubtitle: string;
 export const cartItemPrice: string;
+export const cartItemQty: string;
 export const cartItemSelect: string;

@@ -6,11 +6,12 @@ import {
   DATA_FAILURE,
   DATA_STARTED,
   DATA_SUCCESS,
-  DELETE_ITEM
+  DELETE_ITEM,
+  SET_TOTAL_PRICE
 } from './types';
 
 // MOCK API
-const baseURL: string = 'http://www.mocky.io/v2/5c6fcdf83800006e003fc9b8';
+const baseURL: string = 'https://www.mocky.io/v2/5c7185d03500007000e9e869';
 
 export const removeItemAction = (index: number) => {
   return (dispatch: Dispatch) => {
@@ -21,6 +22,12 @@ export const removeItemAction = (index: number) => {
 export const changeCartAction = (option: any, index: number) => {
   return (dispatch: Dispatch) => {
     dispatch(changeCart(option, index));
+  };
+};
+
+export const setTotalPriceAction = (price: number) => {
+  return (dispatch: Dispatch) => {
+    dispatch(setPrice(price));
   };
 };
 
@@ -67,6 +74,13 @@ const dataFailure = (errors: any): IDataAction => ({
   payload: {
     isFetching: false,
     dataRady: false,
-    errors
+    errors: 'Something went wrong! Try again' || errors
+  }
+});
+
+const setPrice = (price: number): any => ({
+  type: SET_TOTAL_PRICE,
+  payload: {
+    price
   }
 });

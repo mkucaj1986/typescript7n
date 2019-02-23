@@ -1,16 +1,19 @@
 import ChangeCart from 'components/changeCart';
 import DeleteItem from 'components/deleteItem';
 import { ICartItem } from 'interfaces/ICart';
+import { IStore } from 'interfaces/IStore';
 import * as React from 'react';
 import styles from './styles.css';
 
 interface IProps {
   item: ICartItem;
   index: number;
+  app: IStore;
 }
 
+// Get product total price
 const productTotalPrice = (product: ICartItem) => {
-  return product.qty * product.price;
+  return product.qty > 0 ? product.qty * product.price : product.price;
 };
 
 const CartItem = (props: IProps) => {
@@ -30,8 +33,13 @@ const CartItem = (props: IProps) => {
         <DeleteItem index={index} />
       </div>
       <div className={styles.cartItemSelect}>
-        <ChangeCart index={index} />
+        <ChangeCart {...props} />
       </div>
+      {product.qty > 0 ? (
+        <div className={styles.cartItemQty}>Selected qty:{product.qty}</div>
+      ) : (
+        <div className={styles.cartItemQty}>Please Select Qty</div>
+      )}
       <div className={styles.cartItemPrice}>
         Product Price:{productTotalPrice(product)}
       </div>

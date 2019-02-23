@@ -24,15 +24,6 @@ const NavBar = () => (
           Cart
         </NavLink>
       </li>
-      <li className={styles.appMenuListEl}>
-        <NavLink
-          to="/shipping"
-          className={styles.appMenuLink}
-          activeClassName={styles.appMenuIsActive}
-        >
-          Shipping
-        </NavLink>
-      </li>
     </ul>
   </nav>
 );

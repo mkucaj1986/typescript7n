@@ -19,37 +19,32 @@ interface IProps {
 }
 
 const methods = {
-  componentDidMount(props: IProps) {
-    // tslint:disable-next-line:no-console
-    console.log('I mounted! Here are my props: ', props);
-    props.getData();
+  async componentDidMount(props: IProps) {
+    try {
+      await props.getData();
+    } catch (error) {
+      throw error;
+    }
   }
-};
-
-const getTotalPrice = (items: ICartItems): number => {
-  // Total Price number
-  let totalPrice: number = 0;
-
-  items.forEach((el: ICartItem) => {
-    const price: number = el.qty * el.price;
-    totalPrice += price;
-  });
-
-  // return total price
-  return totalPrice;
 };
 
 const Cart = (props: IProps) => {
   const { isFetching, dataRady } = props.app;
 
   // Cart Items
-  const items = props.app.products;
+  const items: ICartItems = props.app.products;
 
-  // Cart Total Price
-  const totalPrice = getTotalPrice(items);
+  // Allow shipping page
+  const canShipping: boolean = props.app.totalPrice > 0 && items.length > 0;
 
   // Render DOM Element
-  let elDom: any = <div>Cart Page</div>;
+  let elDom: any = (
+    <div>
+      <h1>Cart Page</h1>
+      {props.app.errors}
+    </div>
+  );
+
   if (isFetching) {
     elDom = <div className={styles.appSpinner} />;
   }
@@ -57,22 +52,17 @@ const Cart = (props: IProps) => {
   // Render Elements
   return dataRady ? (
     <div>
+      <h1>Cart Page</h1>
       <ul>
         {items.map((item: ICartItem, index: number) => (
           <li key={index}>
-            <CartItem item={item} index={index} />
+            <CartItem item={item} index={index} app={props.app} />
           </li>
         ))}
       </ul>
-      <div>
-        {totalPrice > 0 ? (
-          <TotalPrice totalPrice={totalPrice} />
-        ) : (
-          <div>NO ITEMS</div>
-        )}
-      </div>
+      <div>{items.length ? <TotalPrice {...props} /> : <h2>NO ITEMS</h2>}</div>
       <div className={styles.appLink}>
-        {totalPrice > 0 ? <Link to="/shipping">BUY</Link> : ''}
+        {canShipping ? <Link to="/shipping">BUY</Link> : ''}
       </div>
     </div>
   ) : (

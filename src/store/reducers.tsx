@@ -8,6 +8,8 @@ import { combineReducers } from 'redux';
 const initialState: IStore = {
   products: [],
   dataRady: false,
+  totalPrice: 0,
+  errors: null,
   isFetching: false
 };
 
@@ -20,11 +22,17 @@ const AppReducer = (state: IStore = initialState, action: any) => {
     case 'DATA_SUCCESS':
       state = Object.assign({}, state, action.payload);
       return state;
+    case 'DATA_FAILURE':
+      state = Object.assign({}, state, action.payload);
+      return state;
     case 'DELETE_ITEM':
       state = deleteItem(state, action);
       return state;
     case 'CHNAGE_CART':
       state = changeCart(state, action);
+      return state;
+    case 'SET_TOTAL_PRICE':
+      state = setTotalPrice(state, action);
       return state;
     default:
       return state;
@@ -56,6 +64,18 @@ const changeCart = (state: IStore, action: any) => {
   state = {
     ...state,
     products: newProducts
+  };
+  return state;
+};
+
+// Set total price
+const setTotalPrice = (state: IStore, action: any) => {
+  // cart total price
+  const { price } = action.payload;
+
+  state = {
+    ...state,
+    totalPrice: price
   };
   return state;
 };
